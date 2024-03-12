@@ -1,12 +1,12 @@
 #include <stdio.h>
 
 typedef struct {
-    int value;
-    void *next;
+  int value;
+  void *next;
 } Node;
 typedef struct {
-Node *head;
-
+  void *head;
+  void *current;
 }
 int main(){
     
