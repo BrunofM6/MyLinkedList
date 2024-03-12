@@ -7,7 +7,7 @@ typedef struct{
   void *next;
 } Node;
 
-Node* head = NULL;
+Node *head = NULL;
 
 void printMenu(){
   printf("Select what you want to do:\n");
@@ -22,7 +22,7 @@ void printMenu(){
   printf("9 - Quit.\n");
 }
 
-void addNodeBeg(Node *head, int input){
+void addNodeBeg(int input){
   Node *newNode = malloc(sizeof(Node));
   newNode->value = input;
   newNode->next = head;
@@ -30,7 +30,7 @@ void addNodeBeg(Node *head, int input){
   return;
 }
 
-void addNodeEnd(Node *head, int input){
+void addNodeEnd(int input){
   Node *newNode = malloc(sizeof(Node));
   if(newNode == NULL){
     printf("Memory allocation went wrong!");
@@ -49,17 +49,15 @@ void addNodeEnd(Node *head, int input){
   return;
 }
 
-void removeHead(Node *head){
+void removeHead(){
   if(head == NULL){
     printf("List is already empty!");
   }
-  Node * oldHead = head;
   head = head->next;
-  free(oldHead);
   return;
 }
 
-void removeTail(Node *head){
+void removeTail(){
   if(head == NULL){
     printf("List is already empty!");
   }
@@ -71,11 +69,10 @@ void removeTail(Node *head){
     currentNode1 = currentNode1->next;
   }
   currentNode2->next = NULL;
-  free(currentNode1);
   return;
 }
 
-void addElementN(Node *head, int n){
+void addElementN(int n){
   Node *currentNode = head;
   while(n != 0){
     if(currentNode->next == NULL){
@@ -95,7 +92,7 @@ void addElementN(Node *head, int n){
   return;
 }
 
-void removeElementN(Node *head, int n){
+void removeElementN(int n){
   Node *currentNode = head;
   Node *behindNode;
   while(n != 0){
@@ -112,16 +109,16 @@ void removeElementN(Node *head, int n){
     return;
   }
   behindNode->next = currentNode->next;
-  free(currentNode);
   return;
 }
 
-void printCurrentList(Node *head){
+void printCurrentList(){
   Node *currentNode = head;
-  while(currentNode->next != NULL){
+  while(currentNode != NULL){
     printf("%d --> ", currentNode->value);
+    currentNode = currentNode->next;
   }
-  printf("%d \n", head->value);
+  printf("NULL\n");
 }
 
 int main(){
@@ -130,45 +127,36 @@ int main(){
     printMenu();
     int option = -1;
     scanf("%d", &option);
+    int input;
     switch (option){
-      int n = -1;
-      int input;
       case 1:
         printf("Enter the integer value of the node: ");
         scanf("%d", &input);
-        addNodeBeg(head, input);
+        addNodeBeg(input);
         break;
       case 2:
         printf("Enter the integer value of the node: ");
         scanf("%d", &input);
-        addNodeEnd(head, input);
+        addNodeEnd(input);
         break;
       case 3:
-        removeHead(head);
+        removeHead();
         break;
       case 4:
-        removeTail(head);
+        removeTail();
         break;
       case 5:
-        scanf("%d", &n);
-        if(n != -1){
-            addElementN(head, n);
-        }
-        else{
-            printf("Something went wrong!\n");
-        }
+        scanf("%d", &input);
+        printf("Enter the integer value of the node: ");
+        scanf("%d", &input);
+        addElementN(input);
         break;
       case 6:
-        scanf("%d", &n);
-        if(n != -1){
-          removeElementN(head, n);
-        }
-        else{
-          printf("Something went wrong!\n");
-        }
+        scanf("%d", &input);
+        removeElementN(input);
         break;
       case 7:
-        printCurrentList(head);
+        printCurrentList();
         break;
       case 8:
         break;
