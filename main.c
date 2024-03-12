@@ -2,12 +2,13 @@
 
 typedef struct {
   int value;
-  void *next;
+  Node *next;
 } Node;
 typedef struct {
   void *head;
-  void *current;
-}
+  Node *current;
+} LinkedList;
+
 int main(){
     
     return 0;
