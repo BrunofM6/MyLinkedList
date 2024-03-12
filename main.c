@@ -18,12 +18,13 @@ void printMenu(){
     printf("5 - Remove tail.");
     printf("6 - Add element at n position.");
     printf("7 - Remove element at n position.");
-    printf("8 - Quit.")
+    printf("8 - Print current List.")
+    printf("9 - Quit.");
 }
 int main(){
     LinkedList mainList;
     while(true){
-        
+        scanf
     }
     return 0;
 }
