@@ -80,8 +80,8 @@ void addElementN(int position, int value){
     head = newNode;
   }
   Node *currentNode = head;
-  while(position != 0){
-    if(currentNode->next == NULL){
+  while(position >= 0){
+    if(currentNode->next == NULL && currentNode != head){
       break;
     }
     position--;
@@ -110,7 +110,7 @@ void removeElementN(int n){
     behindNode->next = currentNode->next;
     currentNode = currentNode->next;
   }
-  if(n != 0){
+  if(n != 0 | n != 1){
     printf("The list doesn't have enough elements.");
     return;
   }
