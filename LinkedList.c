@@ -73,6 +73,11 @@ void removeTail(){
 }
 
 void addElementN(int n){
+  Node *newNode = malloc(sizeof(Node));
+  if(head == NULL){
+    newNode->next = NULL;
+    head = newNode;
+  }
   Node *currentNode = head;
   while(n != 0){
     if(currentNode->next == NULL){
@@ -85,10 +90,8 @@ void addElementN(int n){
     printf("The list doesn't have enough elements.");
     return;
   }
-  Node *newNode = malloc(sizeof(Node));
-  newNode->next = currentNode->next;
-  currentNode->next = newNode;
-  currentNode->value = n;
+  newNode->next = currentNode;
+  newNode->value = n;
   return;
 }
 
@@ -153,6 +156,7 @@ int main(){
         break;
       case 6:
         scanf("%d", &input);
+        print("Enter the value of the position of the node:");
         removeElementN(input);
         break;
       case 7:
