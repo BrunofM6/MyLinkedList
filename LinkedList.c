@@ -20,6 +20,7 @@ void printMenu(){
   printf("7 - Print current List.\n");
   printf("8 - Clear list.\n");
   printf("9 - Quit.\n");
+  printf("Enter your option: ");
 }
 
 void addNodeBeg(int input){
@@ -72,26 +73,28 @@ void removeTail(){
   return;
 }
 
-void addElementN(int n){
+void addElementN(int position, int value){
   Node *newNode = malloc(sizeof(Node));
   if(head == NULL){
     newNode->next = NULL;
     head = newNode;
   }
   Node *currentNode = head;
-  while(n != 0){
+  while(position != 0){
     if(currentNode->next == NULL){
       break;
     }
-    n--;
+    position--;
     currentNode = currentNode->next;
   }
-  if(n != 0){
+  if(position != 0){
     printf("The list doesn't have enough elements.");
     return;
   }
-  newNode->next = currentNode;
-  newNode->value = n;
+  newNode->next = currentNode->next;
+  newNode->value = currentNode->value;
+  currentNode->next = newNode;
+  currentNode->value = value;
   return;
 }
 
@@ -131,6 +134,7 @@ int main(){
     int option = -1;
     scanf("%d", &option);
     int input;
+    int position = -1;
     switch (option){
       case 1:
         printf("Enter the integer value of the node: ");
@@ -149,14 +153,15 @@ int main(){
         removeTail();
         break;
       case 5:
+        printf("Enter the value of the node: ");
         scanf("%d", &input);
-        printf("Enter the integer value of the node: ");
-        scanf("%d", &input);
-        addElementN(input);
+        printf("Enter the position of the node: ");
+        scanf("%d", &position);
+        addElementN(position, input);
         break;
       case 6:
         scanf("%d", &input);
-        print("Enter the value of the position of the node:");
+        printf("Enter the value of the position of the node:");
         removeElementN(input);
         break;
       case 7:
