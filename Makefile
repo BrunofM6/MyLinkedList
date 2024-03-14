@@ -1,11 +1,11 @@
-CC = gcc
+LANG = gcc
 CFLAGS = -Wall -Werror -Wextra
-TARGET = LinkedList
+FILE = LinkedList
 
-all: $(TARGET)
+all: $(FILE)
 
-$(TARGET): LinkedList.c
-	$(CC) $(CFLAGS) LinkedList.c -o $(TARGET)
+$(FILE): LinkedList.c
+	$(LANG) $(CFLAGS) LinkedList.c -o $(FILE)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(FILE)

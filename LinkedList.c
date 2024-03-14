@@ -25,6 +25,9 @@ void printMenu(){
 
 void addNodeBeg(int input){
   Node *newNode = malloc(sizeof(Node));
+  if(newNode == NULL){
+    printf("Memory allocation went wrong!");
+  }
   newNode->value = input;
   newNode->next = head;
   head = newNode;
@@ -36,10 +39,10 @@ void addNodeEnd(int input){
   if(newNode == NULL){
     printf("Memory allocation went wrong!");
   }
+  newNode->next = NULL;
   newNode->value = input;
   if(head == NULL){
     head = newNode;
-    newNode->next = NULL;
     return;
   }
   Node *currentNode = head;
@@ -54,7 +57,9 @@ void removeHead(){
   if(head == NULL){
     printf("List is already empty!");
   }
+  Node *oldHead = head;
   head = head->next;
+  free(oldHead);
   return;
 }
 
@@ -62,39 +67,45 @@ void removeTail(){
   if(head == NULL){
     printf("List is already empty!");
   }
+  if(head->next == NULL){
+    Node *oldHead = head;
+    head = NULL;
+    free(oldHead);
+    return;
+  }
   Node *currentNode1 = head;
   Node *currentNode2;
-  currentNode1->next = head->next;
   while(currentNode1->next != NULL){
     currentNode2 = currentNode1;
     currentNode1 = currentNode1->next;
   }
   currentNode2->next = NULL;
+  free(currentNode1);
   return;
 }
 
 void addElementN(int position, int value){
   Node *newNode = malloc(sizeof(Node));
-  if(head == NULL){
-    newNode->next = NULL;
-    head = newNode;
+  if(newNode == NULL){
+    printf("Memory allocation went wrong!");
   }
+  if(head == NULL && position == 0){
+    head = newNode;
+    head->next = NULL;
+    head->value = value;
+  }
+  newNode->value = value;
   Node *currentNode = head;
-  while(position >= 0){
-    if(currentNode->next == NULL && currentNode != head){
-      break;
+  Node *tempNode;
+  for(int i = 0; i < position; i++){
+    if(currentNode == NULL){
+      printf("List is too small!");
     }
-    position--;
+    tempNode = currentNode;
     currentNode = currentNode->next;
   }
-  if(position != 0){
-    printf("The list doesn't have enough elements.");
-    return;
-  }
-  newNode->next = currentNode->next;
-  newNode->value = currentNode->value;
-  currentNode->next = newNode;
-  currentNode->value = value;
+  newNode->next = currentNode;
+  tempNode->next = newNode;
   return;
 }
 
@@ -125,6 +136,14 @@ void printCurrentList(){
     currentNode = currentNode->next;
   }
   printf("NULL\n");
+}
+
+void clearList(){
+  while(head != NULL){
+    Node *oldHead = head;
+    head = head->next;
+    free(oldHead);
+  }
 }
 
 int main(){
@@ -168,6 +187,8 @@ int main(){
         printCurrentList();
         break;
       case 8:
+        clearList();
+        printf("List Cleared!");
         break;
       case 9:
         run = 0;
